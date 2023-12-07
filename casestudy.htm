@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LLM Prompt Pilot</title>
+<meta name="robots" content="index,follow,noarchive" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
+<meta name="description" content="OpenAI ChatGPT interface tool for multiple reformatting of news articles across various media and social channels." />
+<meta name="keywords" content="large language models, chatgpt, gpt, llm, cuny graduate center, data analysis program, fall 2023, matthew stanton" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css"><!--
+
+body {
+	background-color: #005DAA; 
+	padding: 10px 0px 40px 0px; 
+	margin: 0; 
+	color: #444; 
+	font: normal 14px/1.2em verdana, arial, helvetica, sans-serif;
+	line-height: 1.0;
+	text-align: center;
+	}
+
+.wrp01 {
+	width: 60%; min-width: 500px;
+	margin-right:auto; margin-left:auto; margin-top: 5px; margin-bottom: 10px;
+	padding: 0; 
+	text-align: left;
+	}
+
+.wrp02 {
+	border-radius: 30px;
+	margin: 2px 2px 10px 2px; padding: 10px 15px 15px 15px; 
+	text-align: left; 
+	background-color: #eeeeee; 
+	box-shadow: 5px 5px 100px #000;
+	}
+
+.wrp03 {
+	border-radius: 30px;
+	margin: 30px 2px 10px 2px; padding: 10px 15px 15px 15px; 
+	text-align: left; 
+	background-color: #fff; 
+	box-shadow: 5px 5px 100px #000;
+	font: normal 16px/1.2em calibri, arial, helvetica, sans-serifs;
+	color: #333;
+	}
+
+a:link {color: #005DAA; text-decoration: none; border-bottom: 0px solid #fff;}
+a:visited {color: #005DAA; text-decoration: none; border-bottom: 0px solid #fff;}
+a:hover  {color: #EC9C1D; text-decoration: none; border-bottom: 0px solid #EC9C1D;}
+a:active {color: #005DAA; text-decoration: none; border-bottom: 0px solid #fff;}
+
+a.btn:link {text-decoration: none; border: 0px;}
+a.btn:visited {text-decoration: none; border: 0px;}
+a.btn:hover {text-decoration: none; border: 0px;}
+a.btn:active {text-decoration: none; border: 0px;}
+
+.intro {margin: 0 0 15px 0; padding: 0px 20px 2px 20px; font: italic 16px/1.2em calibri, arial, helvetica, sans-serif; color: #666;}
+
+.nmbr {border-radius: 9px; background: #5e8cbf; padding: 5px 15px; margin: 0 5px 4px 0; font: normal 15px/1.2em 'Josefin Sans', sans-serif; color: #fff;}
+
+.textprompt {margin: 0 0 10px 0; padding: 0;}
+.textprompt p {margin: 2px 0 10px 50px; padding: 0; font: italic 13px/1.2em verdana, arial, helvetica, sans-serif;}
+
+.tone {margin: 0 0 10px 0; padding: 0;}
+.tone p {margin: 2px 0 10px 50px; padding: 0; font: italic 13px/1.2em verdana, arial, helvetica, sans-serif;}
+
+.medium {margin: 15px 0 10px 0; padding: 0;}
+.medium p {margin: 2px 0 10px 50px; padding: 0; font: italic 13px/1.2em verdana, arial, helvetica, sans-serif;}
+
+.tech {margin: 20px 0 10px 0; padding: 0;}
+.tech p {margin: 2px 0 10px 50px; padding: 0; font: italic 13px/1.2em verdana, arial, helvetica, sans-serif;}
+
+.optiongroup {width: 100%; margin: 0; padding: 0 5px 0 0; clear: left; overflow: auto;}
+.optiongroup p {float: left; margin: 0; padding: 0; color: #777;}
+.optiongroup select {margin: 5px 3px 0 3px; padding: 2px 5px; font: normal 13px/1.2em verdana, arial, helvetica, sans-serif; color: #555; background-color: #e0e0e0;}
+
+.intendedmedium {margin: 5px 15px 0; padding: 0; width:100%;
+	-webkit-column-count: 3; 
+	-moz-column-count: 3; 
+	column-count: 3;
+	-webkit-column-gap: 10px; 
+	-moz-column-gap: 10px; 
+	column-gap: 10px;
+}
+.intendedmedium p {margin: 0px 0 3px 0; padding: 0; color: #777;}
+
+h1 {margin: 3px 0 0 20px; pading: 0; font: normal 30px/1.2em 'Josefin Sans', sans-serif; letter-spacing: -1px; text-align: left;}
+h2 {margin: 7px 0; pading: 0; font: normal 20px/1.2em 'Josefin Sans', sans-serif; letter-spacing: -1px; text-align: left; color: #005DAA;}
+
+h3 {font: bold 13px/1.2em arial; color: #5e8cbf; margin: 3px 0 3px 0; padding: 0; clear: all;}
+
+img {border: 0; margin: 0;}
+form {border: 0; margin: 0; padding: 0;}
+
+textarea {width: 90%; margin: 5px 20px 0 0; padding: 15px; font: normal 12px/1.2em courier, 'courier new', monospace; color: #000; background-color: #eeeeee;}
+
+.submitbtn {margin: 10px 0; padding: 10px; text-align: center;}
+
+.subbtn {margin: 0; padding: 7px 30px 5px 30px; 
+	border-radius: 9px;
+	letter-spacing: 3px;
+	font: normal 12px/1.2em 'Josefin Sans', sans-serif; 
+	color: #5e8cbf; background-color: #fff;
+	border: 2px solid #fff;		
+	-webkit-box-shadow: 3px 3px 15px 5px rgba(0,0,0,0.25); 
+	box-shadow: 3px 3px 15px 5px rgba(0,0,0,0.25);	
+	}
+
+.subbtn:hover {
+	transition: 0.9s;
+	border: 2px solid #009966;		
+	background-color: #009966; color: #fff;
+	-webkit-box-shadow: 3px 3px 15px 5px rgba(0,0,0,0.50); 
+	box-shadow: 3px 3px 15px 5px rgba(0,0,0,0.50);
+}
+
+#navblk {margin: 7px 0 3px 0; padding: 0; text-align: center;}
+
+.navbtn {margin: 5px 10px; padding: 2px 30px; 
+	border-radius: 9px;
+	font: bold 14px/1.2em calibri, arial, helvetica, sans-serif; 
+	color: #5e8cbf; background-color: #fff;
+	border: 0px solid #fff;		
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.15); 
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.15);	
+	}
+
+.navbtn:hover {
+	transition: 0.9s;
+	border: 0px solid #005DAA;		
+	background-color: #005DAA; color: #fff;
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.15); 
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.15);
+}
+
+#examplesanchors {
+	margin: 0; padding: 5px 15px;
+	border: 2px solid #ccc;
+	background-color: #f0f0f0;
+	background-image: linear-gradient(#f0f0f0, #ffffff);
+	line-height: 1.6em;
+	-webkit-column-count: 2; 
+	 -moz-column-count: 2; 
+	 column-count: 2;
+	 -webkit-column-gap: 20px; 
+	 -moz-column-gap: 20px; 
+	 column-gap: 20px;
+}
+
+hr {
+    margin: 10px 0 5px 0;
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.33), rgba(0,0,0,0)); 
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.33), rgba(0,0,0,0)); 
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.33), rgba(0,0,0,0)); 
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.33), rgba(0,0,0,0)); 
+}
+
+--></style>
+</head>
+<body><div class="wrp01"><a name="top"></a>
+<img src="http://chimaboo.com/coursework/cunygc30.png" alt="CUNY Graduate Center :: Stanton's Stuff" border="0" />
+<div class="wrp03">
+
+<h1>LLM PROMPT PILOT v0.2</h1>
+
+<p align="right"><a href="index.htm"><strong><em>&laquo; Back to LLM Prompt Pilot Tool</em></strong></a></p>
+
+<h2>CASE STUDY / EXAMPLES</h2>
+
+<p>The original proposal for this simple web app was to show how one of the roles of a media producer could be almost fully automated through the use of large language models, specifically OpenAI's Chat GPT. For example, at a major network news organization in the mid-2010s, it was typical to employ producers who would watch news wires, broadcasts, and Twitter feeds in order to quickly and accurately produce the following:
+
+<ol>
+
+<li> text-based articles for publishing to one or more news-branded or lifestyle websites,</li>
+
+<li> review and optimize articles for best SEO performance,</li> 
+
+<li> create a series of social media posts for promotion of said web articles via Facebook, Twitter, and LinkedIn,</li>
+
+<li> create a television broadcast script for quick production of a web-exclusive video segment,</li> 
+
+<li> forward a summary recap to editors at various syndication partners and topical-interest sites, and,</li>
+
+<li> log a note off the published posts in a daily rundown.</li>
+
+</ol>
+
+Depending on the story, these steps might take a producer from 10 minutes to an hour to edit, or longer for actively developing news. Now with such public LLM-based tools <a href="https://chat.openai.com/" target="_blank">OpenAI's Chat&nbsp;GPT</a>, <a href="https://bard.google.com/" target="_blank">Google Bard</a>, 
+<a href="https://claude.ai/" target="_blank">Anthropic Claude</a>, and many others, such tasks may be done in seconds.</p>
+
+<p>As an example, here is a news story about late November's OpenAI CEO drama, distributed by <a href="https://apnews.com/" target="_blank">The Associated Press</a> to its subscribing members:</p>
+
+<p><a href="https://apnews.com/article/altman-openai-chatgpt-31187f7f6eca8ff9d0eef7585aac6ace" target="_blank"><strong>OpenAI brings back Sam Altman as CEO just days after his firing unleashed chaos</strong></a></p>
+
+<a name="examplelist"></a><p>Using the LLM Prompt Pilot settings, the following rewrites of the wire copy were done in seconds.</p>
+
+<div id="examplesanchors">
+<a href="#original"><strong>Original Wire Copy</strong></a><br />
+<a href="#rewritetech">Rewrite: Tech Section</a><br />
+<a href="#rewritebiz">Rewrite: Business Section</a><br />
+<a href="#rewriteseo">Rewrite: Maximize SEO</a><br />
+<a href="#rewritetweet">Series of Tweets</a><br />
+<a href="#rewritefacebook">Facebook Post</a><br />
+<a href="#rewritelinkedin">LinkedIn Post</a><br />
+<a href="#videoscript">Script: TV Video Shoot</a><br />
+<a href="#radioscript">Script: Radio News Read</a><br />
+<a href="#lognote">Log Summary</a><br />
+</div>
+
+<p>With a little API work, pre-set options and audience profiles would be configured to automatically generate these versions and feed them back into the newsroom rundown system, social media tools, and/or content management system for editor review and publishing.</p>
+
+<p><strong>MATTHEW STANTON</strong><br />
+<a href="mailto: mstanton@gradcenter.cuny.edu">mstanton@gradcenter.cuny.edu</a><br />
+<a href="https://pingstanton.com/work/" target="_blank">pingstanton.com/work</a><br />
+<a href="https://github.com/pingstanton/" target="_blank">github.com/pingstanton/</a><br />
+</p>
+
+<p>P.S. Just for fun, <a href="#childstory">here's a rewrite ChatGPT wrote for a 5-year-old child</a>. <em>"Once upon a time in a magical land of computers and robots, there was a special place called OpenAI. The leader of OpenAI was a friendly person named Sam Altman..."</em>
+<strong>Yikes.</stong></p>
+
+</div>
+<div class="wrp03">
+
+<a name="original"></a>
+<h3>Original News Wire Copy (Base of Prompt) [<a href="https://apnews.com/article/altman-openai-chatgpt-31187f7f6eca8ff9d0eef7585aac6ace" target="_blank">Link</a>]</h3>
+
+<textarea id="prompt" name="prompt" cols="60" rows="20">
+<headline> OpenAI brings back Sam Altman as CEO just days after his firing unleashed chaos
+
+<byline> BY MATT O'BRIEN AND HALELUYA HADERO
+
+<change.date> Updated 3:30 PM EST, November 22, 2023
+
+<main>
+
+The ousted leader of ChatGPT maker OpenAI will return to the company that fired him just days ago, concluding a short but chaotic power struggle that shocked the tech industry and underscored the conflicts around how to safely build artificial intelligence.
+
+The San Francisco-based company said late Tuesday that it "reached an agreement in principle" for co-founder Sam Altman to return as CEO under a different board of directors.
+
+The agreement followed intense negotiations that began Saturday between Altman's side and the board members who pushed him out. The discussions included disagreements about Altman's future role and who would stay on the board, according to a person familiar with the talks who spoke on condition of anonymity because they were not allowed to speak publicly about such sensitive matters.
+
+An independent investigation into Altman and the events that led to his ouster, announced earlier this week, will continue, according to the person, who described board members' slow erosion of trust in the OpenAI leader without pointing to any serious wrongdoing. The company previously made unspecified allegations that Altman had not been candid with the board.
+
+The lack of transparency surrounding Altman's firing led to a weekend of internal conflict at the company and growing outside pressure from the startup's investors, particularly Microsoft, which on Monday hired Altman and a key ally, OpenAI co-founder and president Greg Brockman, and opened its doors to any of the other more than 700 employees who wanted to join them.
+
+The turmoil accentuated the differences between Altman - who has become the face of generative AI's rapid commercialization since ChatGPT's arrival a year ago - and board members who have expressed deep reservations about the safety risks posed by AI as it gets more advanced.
+
+One of the four board members who participated in Altman's ouster, OpenAI co-founder and chief scientist Ilya Sutskever, was involved in the negotiations over the weekend. But that changed when he publicly expressed regret about the decision Monday morning and joined the call for the board's resignation.
+
+The person familiar with the talks said board members did not want the company to tank or employees to defect to Microsoft. At the same time, they did not want to acquiesce to demands that they all step down, nor did they want to reinstate Altman and Brockman on the board or install new members who might not stand up to them, the person said.
+
+In the end, most of them did step down.
+
+The new board will be led by former Salesforce co-CEO Bret Taylor, who chaired Twitter's board before Elon Musk took over the platform last year. The other members will be former U.S. Treasury Secretary Larry Summers and Quora CEO Adam D'Angelo, the only member of the previous board to stay on.
+
+"The OpenAI episode shows how fragile the AI ecosystem is right now, including addressing AI's risks," said Johann Laux, an expert at the Oxford Internet Institute focusing on human oversight of artificial intelligence.
+
+Before the board was replaced, venture capitalist Vinod Khosla, a vocal Altman supporter whose firm is an OpenAI investor, wrote in an opinion column at The Information that board members had set back the "tremendous benefits" of AI by misapplying their "religion of ‘effective altruism.'"
+
+Some of OpenAI's board members over the years have had ties to effective altruism, the philanthropic social movement that prioritizes donating to projects that will have the greatest impact on the largest number of people, including humans in the future.
+
+While many effective altruists believe AI could offer powerful benefits, they also advocate for mitigating the technology's potential risks.
+
+Helping to drive Altman's return and the installation of a new board was Microsoft, which has invested billions of dollars in OpenAI and has rights to its existing technology.
+
+While promising to welcome OpenAI's fleeing workforce, Microsoft CEO Satya Nadella also made clear in a series of interviews Monday that he was open to the possibility of Altman returning to OpenAI as long as the startup's governance problems were solved.
+
+"We are encouraged by the changes to the OpenAI board," Nadella posted on X late Tuesday. "We believe this is a first essential step on a path to more stable, well-informed and effective governance."
+
+In his own post, Altman said that with the new board and with Satya's support, he was "looking forward to returning to OpenAI and building on our strong partnership" with Microsoft.
+
+Gone from the OpenAI board are its only two women: tech entrepreneur Tasha McCauley and Helen Toner, a policy expert at Georgetown's Center for Security and Emerging Technology, both of whom have expressed concerns about AI safety risks.
+
+The leadership drama offers a glimpse into how big tech companies are taking the lead in governing AI and its risks, while governments scramble to catch up. The European Union is working to finalize the world's first comprehensive AI rules.
+
+In the absence of regulations, "companies decide how a technology is rolled out," said Oxford's Laux.
+
+Co-founded by Altman as a nonprofit with a mission to safely build AI that outperforms humans and benefits humanity, OpenAI later became a for-profit business - but one still run by its nonprofit board of directors.
+
+This was not OpenAI's first experience with executive turmoil. Past examples including a 2018 falling out between board co-chairs Altman and Musk that led to Musk's exit, and a later exodus of top leaders who started the competitor Anthropic.
+
+It's not clear yet if the board's structure will change with its new members.
+
+Under the current structure, all profit beyond a certain cap is supposed to go back to its mission of helping humanity. The board is also tasked with deciding when AI systems have become so advanced that they are better than humans "at most economically valuable work." At that point, Microsoft's intellectual property licenses no longer apply.
+
+"We are collaborating to figure out the details," OpenAI posted on social media. "Thank you so much for your patience through this."
+
+Nadella said Brockman, who was OpenAI's board chairman until Altman's firing, also will have a key role to play in ensuring the group "continues to thrive and build on its mission."
+
+As for OpenAI's short-lived interim CEO Emmett Shear, the second temporary leader in the days since Altman's ouster, he posted on X that he was "deeply pleased by this result" after about 72 "very intense hours of work."
+
+"Coming into OpenAI, I wasn't sure what the right path would be," wrote Shear, the former head of Twitch. "This was the pathway that maximized safety alongside doing right by all stakeholders involved. I'm glad to have been a part of the solution."
+
+The Associated Press and OpenAI have a licensing and technology agreement allowing OpenAI access to part of the AP's text archives.
+
+</textarea>
+
+</div>
+<a href="#examplelist"><button class="navbtn">^ BACK TO EXAMPLE LIST</button></a>
+
+<a name="rewritetech"></a>
+<div class="wrp03">
+<h3>ChatGPT 3.5: Rewrite: Tech Section</h3>
+<hr />
+<h2>Tech Shake-Up: Sam Altman Returns as OpenAI CEO Amidst Board Overhaul</h2>
+
+<p><em>By Matt O'Brien and Haleluya Hadero | Updated 3:30 PM EST, November 22, 2023</em></p>
+
+<p>In a rapid and unexpected twist, Sam Altman, co-founder of OpenAI and the ousted leader responsible for ChatGPT, is making a comeback as CEO just days after his sudden firing. The swift reversal marks the end of a brief but intense power struggle that sent shockwaves through the tech industry, emphasizing the ongoing debates surrounding the safe development of artificial intelligence (AI).
+
+<p>OpenAI, headquartered in San Francisco, announced late Tuesday that an "agreement in principle" has been reached for Altman's return, but this time under a restructured board of directors. The resolution followed intense negotiations initiated on Saturday, revolving around disagreements over Altman's role and the revamped board's composition, as revealed by an unnamed source close to the discussions.
+
+<p>While an independent investigation into Altman's dismissal continues, focusing on concerns initially raised by the company regarding Altman's alleged lack of transparency, no serious wrongdoing has been identified. The source mentioned a gradual erosion of trust as the primary factor.
+
+<p>The opaque circumstances surrounding Altman's firing triggered internal conflicts and external pressures from investors, notably Microsoft. The tech giant swiftly hired Altman and OpenAI co-founder Greg Brockman, offering an open door to more than 700 OpenAI employees.
+
+<p>This power struggle brought to light deep-seated differences between Altman, a prominent figure in the rapid commercialization of generative AI, and board members expressing reservations about the safety risks associated with advanced AI.
+
+<p>The majority of the previous board resigned, making way for a new board led by former Salesforce co-CEO Bret Taylor, with former U.S. Treasury Secretary Larry Summers and Quora CEO Adam D'Angelo joining. The only member retained from the prior board is Adam D'Angelo.
+
+<p>Johann Laux, an expert at the Oxford Internet Institute, commented, "The OpenAI episode shows how fragile the AI ecosystem is right now, including addressing AI's risks."
+
+<p>Microsoft, a major investor in OpenAI, played a crucial role in facilitating Altman's return, underlining the importance of resolving governance issues. Microsoft CEO Satya Nadella expressed optimism about the changes, considering them an essential step toward more stable and effective governance.
+
+<p>The new board structure raises questions about potential changes, given OpenAI's transformation from a nonprofit with a mission to build safe AI benefiting humanity to a for-profit business with a nonprofit board of directors. Past executive turmoil, including a 2018 fallout between Altman and Elon Musk, reflects the organization's history of leadership challenges.
+
+<p>The new board will collaborate on potential structural changes, considering that the current model mandates profits beyond a certain cap to be reinvested in the mission. OpenAI is also tasked with determining when AI surpasses human capabilities in economically valuable work.
+
+<p>Microsoft's commitment to OpenAI's success extends to Greg Brockman, who will play a key role in ensuring the organization continues to thrive. Interim CEO Emmett Shear expressed satisfaction with the resolution, marking the end of a tumultuous 72 hours.
+
+<p>Note: The Associated Press and OpenAI have a licensing and technology agreement allowing OpenAI access to part of the AP's text archives.
+
+</div>
+<a href="#examplelist"><button class="navbtn">^ BACK TO EXAMPLE LIST</button></a>
+
+<a name="rewritebiz"></a>
+<div class="wrp03">
+<h3>ChatGPT 3.5: Rewrite: Business Section</h3>
+<hr />
+<h2>OpenAI Welcomes Back Sam Altman as CEO Amidst Board Overhaul</h2>
+
+<p><em>By Matt O'Brien and Haleluya Hadero | Updated 3:30 PM EST, November 22, 2023</em></p>
+
+<p>In a surprising turn of events, Sam Altman, co-founder of OpenAI and the ousted leader behind ChatGPT, is set to return as CEO after being fired just days ago. The abrupt reversal concludes a brief but tumultuous power struggle that sent shockwaves through the tech industry, highlighting the ongoing debates over the safe development of artificial intelligence.
+
+<p>Late Tuesday, San Francisco-based OpenAI announced an "agreement in principle" for Altman's return, under a reconstituted board of directors. The resolution followed intense negotiations initiated on Saturday, involving disagreements over Altman's role and the composition of the board, according to an anonymous source close to the talks.
+
+<p>An ongoing independent investigation into the circumstances leading to Altman's dismissal will persist, focusing on concerns that were initially raised by the company regarding Altman's alleged lack of candor with the board. The source did not identify any serious wrongdoing but spoke of a slow erosion of trust.
+
+<p>The lack of transparency surrounding Altman's firing prompted internal conflicts and external pressure from investors, notably Microsoft, which swiftly hired Altman and OpenAI co-founder Greg Brockman. Microsoft also welcomed over 700 OpenAI employees to join them, heightening the urgency for resolution.
+
+<p>The power struggle exposed deep-seated differences between Altman, the prominent face of generative AI's rapid commercialization, and board members who expressed reservations about the safety risks associated with advanced AI.
+
+<p>The majority of the previous board resigned, paving the way for a new board led by former Salesforce co-CEO Bret Taylor, with former U.S. Treasury Secretary Larry Summers and Quora CEO Adam D'Angelo joining. The only member retained from the prior board is Adam D'Angelo.
+
+<p>Johann Laux, an expert at the Oxford Internet Institute, commented, "The OpenAI episode shows how fragile the AI ecosystem is right now, including addressing AI's risks."
+
+<p>Microsoft, a major investor in OpenAI, played a pivotal role in facilitating Altman's return, emphasizing the importance of resolving governance issues. Microsoft CEO Satya Nadella expressed optimism about the changes, calling them an essential step toward more stable and effective governance.
+
+<p>Gone from the new board are the only two women, tech entrepreneur Tasha McCauley and policy expert Helen Toner, both of whom expressed concerns about AI safety risks.
+
+<p>This leadership saga sheds light on how tech giants are taking the lead in governing AI and its risks, outpacing government efforts. As governments work on AI regulations, companies like OpenAI shape the technology's rollout.
+
+<p>OpenAI, founded as a nonprofit with a mission to build safe AI benefiting humanity, transformed into a for-profit business with a nonprofit board of directors. Past executive turmoil, including a 2018 fallout between Altman and Elon Musk, underscores the organization's history of leadership challenges.
+
+<p>The new board will collaborate on potential structural changes, as the current model mandates profits beyond a certain cap to be reinvested in the mission. OpenAI is also tasked with determining when AI surpasses human capabilities in economically valuable work.
+
+<p>Microsoft's commitment to OpenAI's success extends to Greg Brockman, who will play a key role in ensuring the organization continues to thrive. Interim CEO Emmett Shear expressed satisfaction with the resolution, marking the end of a tumultuous 72 hours.
+
+<p>Note: The Associated Press and OpenAI have a licensing and technology agreement allowing OpenAI access to part of the AP's text archives.
+
+</div>
+<a href="#examplelist"><button class="navbtn">^ BACK TO EXAMPLE LIST</button></a>
+
+<a name="rewriteseo"></a>
+<div class="wrp03">
+<h3>ChatGPT 3.5: Rewrite: Maximize SEO</h3>
+<hr />
+<h2>OpenAI Reinstates Sam Altman as CEO Following Recent Firing: Key Developments</h2>
+
+<p><strong>Key Points:</strong></p>
+
+<ul>
+<li> Sam Altman reinstated as CEO of OpenAI just days after being fired.</li>
+<li> Agreement reached under a new board of directors.</li>
+<li> Independent investigation into Altman's ouster to continue.</li>
+<li> Turmoil exposes conflicts over AI safety concerns within OpenAI.</li>
+<li> Microsoft, a major investor, played a pivotal role in Altman's return.</li>
+<li> New board led by Bret Taylor with Larry Summers and Adam D'Angelo as members.</li>
+<li> Two women on the previous board, Tasha McCauley and Helen Toner, are no longer part of the board.</li>
+<li> Microsoft CEO Satya Nadella expresses support for the changes in the OpenAI board.
+OpenAI's structure and mission still to be determined under the new leadership.</li>
+</ul>
+
+<p><strong>San Francisco, November 22, 2023</strong> - In a surprising turn of events, OpenAI has reinstated Sam Altman as CEO just days after his dismissal, signaling the end of a brief but tumultuous power struggle that sent shockwaves through the tech industry. The company announced on Tuesday that an agreement had been reached in principle for Altman's return, underlining the complex dynamics surrounding the development of artificial intelligence.</p>
+
+<p>1. <strong>Altman's Reinstatement:</strong> OpenAI confirms Sam Altman's return as CEO, resolving the recent power struggle.
+
+<p>2. <strong>New Board of Directors:</strong> The agreement includes the formation of a new board of directors, led by Bret Taylor, former Salesforce co-CEO.
+
+<p>3. <strong>Ongoing Investigation:</strong> An independent investigation into Altman and the circumstances leading to his firing will continue.
+
+<p>4. <strong>Microsoft's Influence:</strong> Microsoft, a significant investor in OpenAI, played a crucial role in facilitating Altman's return and supporting governance changes.
+
+<p>5. <strong>Board Resignations:</strong> Most of the previous board members stepped down, with new members including Larry Summers and Adam D'Angelo.
+
+<p>6. <strong>Support from Microsoft CEO:</strong> Satya Nadella expresses encouragement for the changes in the OpenAI board, emphasizing the importance of stable governance.
+
+<p>7. <strong>Exclusion of Women Board Members:</strong> The only two women on the previous board, Tasha McCauley and Helen Toner, are no longer part of the board.
+
+<p>8. <strong>Future Governance and Mission:</strong> The structure and mission of OpenAI remain uncertain, with ongoing collaboration to determine details.
+
+<p>This leadership upheaval sheds light on the challenges surrounding AI development and safety, with major tech companies taking a leading role in governance. The incident also underscores the influence of investors, with Microsoft actively participating in shaping OpenAI's leadership landscape. As the company navigates this transition, the AI industry awaits further details on OpenAI's future direction and mission.
+</div>
+<a href="#examplelist"><button class="navbtn">^ BACK TO EXAMPLE LIST</button></a>
+
+<a name="rewritetweet"></a>
+<div class="wrp03">
+<h3>ChatGPT 3.5: Rewrite: Series of Tweets</h3>
+<hr />
+
+<p>📰 #OpenAIUpdate 🔄 Sam Altman returns as CEO of @OpenAI just days after his firing sparked chaos. The company announces a "principle agreement" for his return under a revamped board. The move concludes a tumultuous power struggle, revealing deep conflicts in AI development.</p>
+
+<hr />
+
+<p>👥 Negotiations between Altman and the board included disputes over his future role and board composition. An ongoing independent investigation into the events leading to Altman's ouster will continue, citing a slow erosion of trust without specified wrongdoing.</p>
+
+<hr />
+
+<p>💼 Microsoft, a major investor, hires Altman and OpenAI president Greg Brockman amid the chaos, opening its doors to over 700 employees. The leadership shake-up highlights concerns about the safety risks of advanced AI and the clash between rapid commercialization and cautious board members.</p>
+
+<hr />
+
+<p>🤝 The new board, led by Bret Taylor, includes former U.S. Treasury Secretary Larry Summers and Quora CEO Adam D'Angelo. Microsoft CEO Satya Nadella expresses support for the changes, emphasizing the importance of stable governance in AI development.</p>
+
+<hr />
+
+<p>🌐 The episode underscores the fragility of the AI ecosystem, with experts noting the lack of regulations. Altman's return, backed by Microsoft, signals a pivotal moment in how big tech companies influence AI governance.</p>
+
+<hr />
+
+<p>🌐🔍 In the absence of regulations, companies like OpenAI shape technology rollout. The drama sheds light on the challenges of balancing AI advancements with safety concerns. Stay tuned for updates on how the board's structure and OpenAI's mission may evolve.</p>
+
+<hr />
+
+<p>#AI #TechNews #OpenAIAltmanReturn #GovernanceChanges</p>
+
+</div>
+<a href="#examplelist"><button class="navbtn">^ BACK TO EXAMPLE LIST</button></a>
+
+<a name="rewritefacebook"></a>
+<div class="wrp03">
+<h3>ChatGPT 3.5: Rewrite: Facebook Post</h3>
+<hr />
+<p>🚀 Breaking News: OpenAI reinstates Sam Altman as CEO! 🔄 After days of chaos, a new board leads the way. 🌐 #OpenAI #SamAltman #TechNews</p>
+</div>
+<a href="#examplelist"><button class="navbtn">^ BACK TO EXAMPLE LIST</button></a>
+
+<a name="rewritelinkedin"></a>
+<div class="wrp03">
+<h3>ChatGPT 3.5: Rewrite: LinkedIn Post</h3>
+<hr />
+<p>🚀 Exciting News in AI Leadership! 🔍 OpenAI reinstates Sam Altman as CEO. A revamped board sets the course for the future. 🌐 #OpenAI #AILeadership #TechInnovation</p>
+</div>
+<a href="#examplelist"><button class="navbtn">^ BACK TO EXAMPLE LIST</button></a>
+
+<a name="videoscript"></a>
+<div class="wrp03">
+<h3>ChatGPT 3.5: Rewrite: Television Script</h3>
+<hr />
+<p>[INTRO]</p>
+<p>ANCHOR: Good evening. I'm [Anchor Name], and this is [News Network]. Tonight, a dramatic twist in the world of artificial intelligence as OpenAI reinstates its ousted CEO, Sam Altman, just days after his firing. Our reporters Matt O'Brien and Haleluya Hadero have the inside scoop on the chaos and negotiations that led to this unexpected comeback.</p>
+<p>[VISUAL: Montage of OpenAI headquarters, employees, and AI-related visuals]</p>
+<p>[SEGMENT 1: THE SURPRISE RETURN]</p>
+<p>REPORTER 1: Thank you, [Anchor Name]. In a move that's sending shockwaves through the tech industry, Sam Altman is making a comeback as the CEO of OpenAI. This comes after a weekend of intense negotiations between Altman and the board members who initially ousted him.</p>
+<p>[VISUAL: Clips of Sam Altman and the previous board members]</p>
+<p>[SEGMENT 2: BEHIND CLOSED DOORS]</p>
+<p>REPORTER 1: The decision to reinstate Altman followed behind-the-scenes talks that delved into disagreements over his role and the composition of the board. Our sources say these negotiations were critical in reaching an agreement in principle.</p>
+<p>[VISUAL: Imagery of closed-door meetings, negotiations, and legal documents]</p>
+<p>[SEGMENT 3: ONGOING INVESTIGATION]</p>
+<p>REPORTER 1: Meanwhile, an independent investigation into Altman's actions and the circumstances surrounding his firing continues. The lack of transparency has fueled internal conflict and raised concerns about the future of OpenAI.</p>
+<p>[VISUAL: Graphics highlighting the ongoing investigation, newspaper headlines]</p>
+<p>[SEGMENT 4: BOARD RESHUFFLE]</p>
+<p>REPORTER 1: Board members, including OpenAI co-founder Ilya Sutskever, resigned amidst the chaos. The new board, led by Bret Taylor, Larry Summers, and Adam D'Angelo, faces the challenge of steering OpenAI through these turbulent times.</p>
+<p>[VISUAL: Headshots of the new board members, transitions of board resignations]</p>
+<p>[SEGMENT 5: MICROSOFT'S INFLUENCE]</p>
+<p>REPORTER 1: A significant player in this unfolding drama is Microsoft, a major investor in OpenAI. Microsoft's CEO, Satya Nadella, played a key role in the reinstatement, emphasizing the importance of stable governance for the future of AI.</p>
+<p>[VISUAL: Microsoft and OpenAI logos side by side, clips of Nadella and Altman]</p>
+<p>[SEGMENT 6: DIVERSITY DISCUSSION]</p>
+<p>REPORTER 1: However, the reshuffle has raised questions about diversity, with the removal of the only two women on the board. Tasha McCauley and Helen Toner were vocal about AI safety risks, and their absence raises concerns about the diversity of perspectives in OpenAI's leadership.</p>
+<p>[VISUAL: Graphics highlighting the lack of diversity, quotes from McCauley and Toner]</p>
+<p>[SEGMENT 7: BIG TECH AND AI GOVERNANCE]</p>
+<p>REPORTER 1: This leadership shakeup also highlights the evolving role of big tech in governing AI. As governments work to catch up, companies like OpenAI are taking the lead in shaping the future of artificial intelligence.</p>
+<p>[VISUAL: Clips of big tech company logos, snippets of government officials discussing AI]</p>
+<p>[CONCLUSION]</p>
+<p>ANCHOR: The return of Sam Altman to OpenAI has left the tech world buzzing with speculation. As the company charts a new course under its reinstated CEO and a revamped board, the broader conversation on the responsible development of AI takes center stage. Stay tuned for further updates on this rapidly unfolding story.</p>
+</div>
+<a href="#examplelist"><button class="navbtn">^ BACK TO EXAMPLE LIST</button></a>
+
+<a name="radioscript"></a>
+<div class="wrp03">
+<h3>ChatGPT 3.5: Rewrite: Radio News Read</h3>
+<hr />
+
+<p>[news music playing]
+
+<p>Announcer: OpenAI, the maker of ChatGPT, has reinstated Sam Altman as CEO, just days after his abrupt firing triggered chaos. The San Francisco-based company confirmed an agreement for Altman's return under a revamped board of directors, led by Bret Taylor. The move follows intense negotiations over the weekend, fueled by conflicts over Altman's role and board composition. An ongoing independent investigation into Altman's ouster will persist. Microsoft, a key investor, supports the leadership changes. Stay tuned for in-depth analysis on the implications of this seismic shift.
+
+<p>[Music fades out]
+
+</div>
+<a href="#examplelist"><button class="navbtn">^ BACK TO EXAMPLE LIST</button></a>
+
+<a name="lognote"></a>
+<div class="wrp03">
+<h3>ChatGPT 3.5: Rewrite: Log Note</h3>
+<hr />
+<p><strong>CHATGPT CEO:</strong> OpenAI has reappointed Sam Altman as CEO after his recent firing triggered turmoil. The San Francisco-based company reached an agreement for Altman's return amid intense negotiations. An ongoing independent investigation into Altman's ouster will continue, addressing allegations of lack of candor. Microsoft, a major investor, played a role in Altman's return, expressing support for the changes in the OpenAI board. The new board, led by Bret Taylor, includes Larry Summers and Adam D'Angelo. Altman, the face of AI's commercialization, expressed excitement about returning and building on the partnership with Microsoft. The leadership reshuffle underscores challenges in AI governance.</p>
+</div>
+<a href="#examplelist"><button class="navbtn">^ BACK TO EXAMPLE LIST</button></a>
+
+<a name="childstory"></a>
+<div class="wrp03">
+<h3>ChatGPT 3.5: Rewrite: Tell This Story To A 5-Year-Old</h3>
+<hr />
+
+<p>Once upon a time in a magical land of computers and robots, there was a special place called OpenAI. This place made wonderful things called artificial intelligence, or AI, that could talk and help people. The leader of OpenAI was a friendly person named Sam Altman.
+
+<p>One day, there was a big surprise! Sam Altman, the leader, had to leave OpenAI, and it made everything very mixed up and confused. People were talking about it a lot, and some were not happy. It was like when your favorite toy goes missing, and you're not sure why.
+
+<p>But guess what? After just a few days, there was even more magic! OpenAI and Sam Altman talked and decided they wanted to be friends again. They made a special promise, and Sam Altman was going to be the leader once more, but with new friends to help him.
+
+<p>There were some grown-ups who talked a lot about serious things, like how to make the AI safe and good. They had some disagreements, like when you and your friend can't decide which game to play. But in the end, they all worked together and made a new plan.
+
+<p>Sam Altman and his friends had to figure out how to fix everything, and they asked a new leader named Bret Taylor to help them. They wanted to make sure the AI was safe and that everyone could be happy and work together. Some of the people who were worried before decided to leave, but that was okay because they wanted to find new adventures.
+
+<p>Microsoft, a big friend of OpenAI, also helped and said they were happy with the new plan. Sam Altman and Microsoft were going to work together and make sure everything was okay. Everyone was smiling again, and they said, "Hooray! We fixed it!"
+
+<p>And so, the magical land of OpenAI continued to make amazing AI, and Sam Altman and his friends made sure it was safe and good for everyone. The end!
+
+</div>
+
+</div></body>
+</html>
