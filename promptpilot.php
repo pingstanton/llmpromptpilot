@@ -13,6 +13,21 @@ New York, USA
 
 December 6, 2023
 
+A NOTE ABOUT THIS APP
+The original scope planned to build a PHP app using ChatGPT Chat Completion 
+via the OpenAI API. However, all available SDK and examples I could find 
+required PHP 8.0+, which - for some reason - causes my WordPress blogs 
+to completely break when deployed in my production environment with GoDaddy.
+(I originally hosted with Media Temple, which sadly was bought out
+by GoDaddy.) So... My hosting environment is stuck in PHP 7.4 until
+I figure out the conflicting issues... And, to boot, my Flask version
+in Python isn't working at GoDaddy either...
+
+That said, the concept behind this project is sound, and the temporary "version 0.2"
+shown here suggests the direction this app is meant to go in... for now...
+
+- MS
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -207,11 +222,14 @@ function gotoClaude() {
 }
 
 if ($blank == "yes") {
+$errorMsgOptions = array("Whoops.", "Oops.", "Uh-oh.", "My bad.", "Oh dear.", "Well, that happened.", "Well, that happened.", "Well, that happened.", "Inadvertently. Clearly.", "Inadvertently. Clearly.", "Inadvertently. Clearly.", "Whoa.", "Whoa.", "Ah...", "Darn it!", "Oopsie daisy.", "Oh no.", "Whoa there.", "Ahem...", "Oh, snap.", "Dear me.", "Geez.");
+$errorMsgPick = array_rand($errorMsgOptions);
+$errorMsg = $errorMsgOptions[$errorMsgPick];
 $bgcolor = "#ff0000";
 $hilitecolor = "#ff0000";
 $promptoutputs = "<div id=\"promptset01\" name=\"promptset01\" class=\"promptset\">
 <h3><strong class=\"nmbr\">!</strong> <a href=\"#\" onclick=\"history.back()\">&#8617; MISSING PROMPT SUGGESTION</a></h3>
-<p>Whoops...</p>
+<p>$errorMsg</p>
 <textarea id=\"prompt01\" name=\"prompt01\" cols=\"60\" rows=\"10\">There was no initial prompt entered in the previous screen. Please go back and enter some information about what you want to generate in a response. \n\n&#128512;</textarea>
 </div>
 ";}
