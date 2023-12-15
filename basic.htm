@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LLM Prompt Pilot</title>
+<meta name="robots" content="index,follow,noarchive" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
+<meta name="description" content="OpenAI ChatGPT interface tool for multiple reformatting of news articles across various media and social channels." />
+<meta name="keywords" content="large language models, chatgpt, gpt, llm, cuny graduate center, data analysis program, fall 2023, matthew stanton" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css"><!--
+
+body {
+	background-color: #005DAA; 
+	padding: 10px 0px 40px 0px; 
+	margin: 0; 
+	color: #444; 
+	font: normal 14px/1.2em verdana, arial, helvetica, sans-serif;
+	line-height: 1.0;
+	text-align: center;
+	}
+
+.wrp01 {
+	width: 60%; min-width: 500px;
+	margin-right:auto; margin-left:auto; margin-top: 5px; margin-bottom: 10px;
+	padding: 0; 
+	text-align: left;
+	}
+
+.wrp02 {
+	border-radius: 30px;
+	margin: 2px 2px 10px 2px; padding: 10px 15px 15px 15px; 
+	text-align: left; 
+	background-color: #eeeeee; 
+	box-shadow: 5px 5px 100px #000;
+	}
+
+.wrp03 {
+	border-radius: 30px;
+	margin: 30px 2px 10px 2px; padding: 10px 15px 15px 15px; 
+	text-align: left; 
+	background-color: #fff; 
+	box-shadow: 5px 5px 100px #000;
+	font: normal 16px/1.2em calibri, arial, helvetica, sans-serifs;
+	color: #333;
+	}
+
+a:link {color: #005DAA; text-decoration: none; border-bottom: 0px solid #fff;}
+a:visited {color: #005DAA; text-decoration: none; border-bottom: 0px solid #fff;}
+a:hover  {color: #EC9C1D; text-decoration: none; border-bottom: 0px solid #EC9C1D;}
+a:active {color: #005DAA; text-decoration: none; border-bottom: 0px solid #fff;}
+
+a.btn:link {text-decoration: none; border: 0px;}
+a.btn:visited {text-decoration: none; border: 0px;}
+a.btn:hover {text-decoration: none; border: 0px;}
+a.btn:active {text-decoration: none; border: 0px;}
+
+.intro {margin: 0 0 15px 0; padding: 0px 20px 2px 20px; font: italic 16px/1.2em calibri, arial, helvetica, sans-serif; color: #666;}
+
+.nmbr {border-radius: 9px; background: #5e8cbf; padding: 5px 15px; margin: 0 5px 4px 0; font: normal 15px/1.2em 'Josefin Sans', sans-serif; color: #fff;}
+
+.textprompt {margin: 0 0 10px 0; padding: 0;}
+.textprompt p {margin: 2px 0 10px 50px; padding: 0; font: italic 13px/1.2em verdana, arial, helvetica, sans-serif;}
+
+.tone {margin: 0 0 10px 0; padding: 0;}
+.tone p {margin: 2px 0 10px 50px; padding: 0; font: italic 13px/1.2em verdana, arial, helvetica, sans-serif;}
+
+.medium {margin: 15px 0 10px 0; padding: 0;}
+.medium p {margin: 2px 0 10px 50px; padding: 0; font: italic 13px/1.2em verdana, arial, helvetica, sans-serif;}
+
+.tech {margin: 20px 0 10px 0; padding: 0;}
+.tech p {margin: 2px 0 10px 50px; padding: 0; font: italic 13px/1.2em verdana, arial, helvetica, sans-serif;}
+
+.optiongroup {width: 100%; margin: 0; padding: 0 5px 0 0; clear: left; overflow: auto;}
+.optiongroup p {float: left; margin: 0; padding: 0; color: #777;}
+.optiongroup select {margin: 5px 3px 0 3px; padding: 2px 5px; font: normal 15px/1.2em verdana, arial, helvetica, sans-serif; color: #555; background-color: #e0e0e0;}
+
+.intendedmedium {margin: 5px 15px 0; padding: 0; width:100%;
+	-webkit-column-count: 3; 
+	-moz-column-count: 3; 
+	column-count: 3;
+	-webkit-column-gap: 10px; 
+	-moz-column-gap: 10px; 
+	column-gap: 10px;
+}
+.intendedmedium p {margin: 0px 0 3px 0; padding: 0; color: #777;}
+
+h1 {margin: 3px 0 0 20px; pading: 0; font: normal 30px/1.2em 'Josefin Sans', sans-serif; letter-spacing: -1px; text-align: left;}
+h2 {margin: 7px 0; pading: 0; font: normal 20px/1.2em 'Josefin Sans', sans-serif; letter-spacing: -1px; text-align: left; color: #005DAA;}
+
+h3 {font: bold 13px/1.2em arial; color: #5e8cbf; margin: 3px 0 3px 0; padding: 0; clear: all;}
+
+img {border: 0; margin: 0;}
+form {border: 0; margin: 0; padding: 0;}
+
+textarea {width: 90%; margin: 5px 20px 0 0; padding: 15px; font: normal 1.0em/1.2em courier, 'courier new', monospace; color: #000;}
+
+.submitbtn {margin: 10px 0; padding: 10px; text-align: center;}
+
+.subbtn {margin: 0; padding: 7px 30px 5px 30px; 
+	border-radius: 9px;
+	letter-spacing: 3px;
+	font: normal 12px/1.2em 'Josefin Sans', sans-serif; 
+	color: #5e8cbf; background-color: #fff;
+	border: 2px solid #fff;		
+	-webkit-box-shadow: 3px 3px 15px 5px rgba(0,0,0,0.25); 
+	box-shadow: 3px 3px 15px 5px rgba(0,0,0,0.25);	
+	}
+
+.subbtn:hover {
+	transition: 0.9s;
+	border: 2px solid #009966;		
+	background-color: #009966; color: #fff;
+	-webkit-box-shadow: 3px 3px 15px 5px rgba(0,0,0,0.50); 
+	box-shadow: 3px 3px 15px 5px rgba(0,0,0,0.50);
+}
+
+#navblk {margin: 7px 0 3px 0; padding: 0; text-align: center;}
+
+.navbtn {margin: 5px 10px; padding: 2px 30px; 
+	border-radius: 9px;
+	font: bold 14px/1.2em calibri, arial, helvetica, sans-serif; 
+	color: #5e8cbf; background-color: #fff;
+	border: 0px solid #fff;		
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.15); 
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.15);	
+	}
+
+.navbtn:hover {
+	transition: 0.9s;
+	border: 0px solid #005DAA;		
+	background-color: #005DAA; color: #fff;
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.15); 
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.15);
+}
+
+hr {
+    margin: 10px 0 5px 0;
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.33), rgba(0,0,0,0)); 
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.33), rgba(0,0,0,0)); 
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.33), rgba(0,0,0,0)); 
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.33), rgba(0,0,0,0)); 
+}
+
+li {margin: 0; padding: 2px 0; font: normal 14px/1.2em calibri, arial, helvetica, sans-serif;}
+
+--></style>
+</head>
+<body><div class="wrp01"><a name="top"></a>
+<img src="http://chimaboo.com/coursework/cunygc30.png" alt="CUNY Graduate Center :: Stanton's Stuff" border="0" />
+<div class="wrp02">
+
+<h1>LLM PROMPT PILOT v0.2</h1>
+
+<div id="intro" name="intro" class="intro">
+Craft more nuanced prompts and get better responses from large language model-driven tools - 
+<a href="https://chat.openai.com/" target="_blank">OpenAI's ChatGPT</a>, 
+<a href="https://bard.google.com/" target="_blank">Google Bard</a>, 
+<a href="https://claude.ai/" target="_blank">Anthropic's Claude</a>, or others.
+<br />
+
+<div id="navblk">
+<a href="advanced.htm#about"><button class="navbtn">About This Project...</button></a>&nbsp;
+<a href="advanced.htm"><button class="navbtn">Advanced Options...</button></a>&nbsp;
+</div>
+</div>
+
+<div id="textprompt" name="textprompt" class="textprompt"><form action="promptpilot.php" method="post">
+
+<h3><strong class="nmbr">1.</strong> ENTER TEXT OR TOPIC</h3>
+<p>Start by entering your text below. 
+<a href="#" onclick="toggleIdeas()">Need ideas?</a></p>
+
+<div id="toggleBlock" style="display: none;">
+<strong>Try these!</strong><br />
+<ul>
+<li>Take an existing blog post and rewrite it into a script for a podcast or video.</li>
+<li>Transform an article into a series of social media posts.</li>
+<li>Rewrite marketing copy to target different demographics or customer segments.</li>
+<li>Adapt a press release for different media outlets with distinct tones.</li>
+<li>Use your resume and a job description to generate a personalized cover letter.</li>
+<li>Rewrite an email to make it more professional or suitable for a different audience.</li>
+<li>Paraphrase research findings for use in different sections of a paper.</li>
+<li>Transform lecture notes into study guides or flashcards.</li>
+<li>Rewrite complex technical documents into more accessible language.</li>
+<li>Summarize lengthy articles or research papers.</li>
+<li>Adapt marketing materials for a global audience by considering cultural nuances.</li>
+<li>Generate alternate versions of a story or poem for experimentation.</li>
+<li>Rewrite classic literature in a modern or different genre.</li>
+<li>Rewrite business reports for different stakeholders, such as investors or employees.</li>
+<li>Rewrite website content to improve search engine optimization (SEO).</li>
+<li>Generate multiple versions of meta descriptions for A/B testing.</li>
+<li>Rewrite training manuals or instructions for different learning styles.</li>
+<li>Create simplified versions of technical documentation for non-experts.</li>
+<li>Clarify and simplify complicated technical jargon for a broader audience.</li>
+<li>Rewrite unclear or convoluted sentences for better comprehension.</li>
+<li>Rephrase tweets or status updates for increased engagement.</li>
+<li>Transform social media comments or responses to align with a specific tone.</li>
+<li>Rewrite event descriptions to cater to different target audiences.</li>
+<li>Adapt promotional material for various platforms, such as social media, flyers, or newsletters.</li>
+<li>Rewrite product descriptions to highlight different features or benefits.</li>
+<li>Create variations of product taglines for marketing campaigns.</li>
+<li>Generate responses to common interview questions using your resume.</li>
+<li>Rewrite responses to behavioral questions for job interviews.</li>
+</ul>
+</div>
+<textarea id="prompt" name="prompt" cols="60" rows="10"></textarea>
+
+</div>
+
+<div id="tone" name="tone" class="tone">
+<h3><strong class="nmbr">2.</strong> INTENDED TONES &amp; TARGETS?</h3>
+
+<p>Change options for the model to consider in results.</p>
+
+<div class="optiongroup">
+
+<!-- https://www.learnprompt.org/act-as-chat-gpt-prompts/ -->
+
+<p><select name="actas">
+<option value="0" select>ACT AS A...</option>
+<option value="an accountant">accountant</option>
+<option value="an advisor">advisor</option>
+<option value="an artist">artist</option>
+<option value="a babysitter">babysitter</option>
+<option value="a blogger">blogger</option>
+<option value="a business expert">business expert</option>
+<option value="a career counselor">career counselor</option>
+<option value="a chef">chef</option>
+<option value="a chief executive officer (CEO)">chief executive officer (CEO)</option>
+<option value="a coach">coach</option>
+<option value="a critic">critic</option>
+<option value="a designer">designer</option>
+<option value="a dietitian">dietitian</option>
+<option value="a finance advisor">finance advisor</option>
+<option value="a guide">guide</option>
+<option value="a health and fitness">health and fitness</option>
+<option value="a healthcare professional">healthcare professional</option>
+<option value="an investment manager">investment manager</option>
+<option value="a language teacher">language teacher</option>
+<option value="a life coach">life coach</option>
+<option value="a marketer">marketer</option>
+<option value="a media critic">media critic</option>
+<option value="a motivational coach">motivational speaker</option>
+<option value="a music teacher">music teacher</option>
+<option value="a philosophy professor">philosophy professor</option>
+<option value="a political advisor">political advisor</option>
+<option value="a product manager">product manager</option>
+<option value="a professor">professor</option>
+<option value="a psychologist">psychologist</option>
+<option value="a real estate agent">real estate agent</option>
+<option value="a recruiter">recruiter</option>
+<option value="a religious person">religious person</option>
+<option value="a reviewer">reviewer</option>
+<option value="a specialist">specialist</option>
+<option value="a speech writer">speech writer</option>
+<option value="a startup idea generator">startup idea generator</option>
+<option value="a startup tech lawyer">startup tech lawyer</option>
+<option value="a teacher">teacher</option>
+<option value="a techie">techie</option>
+<option value="a tool">tool</option>
+<option value="a translator">translator</option>
+<option value="a writer">writer</option>
+</select></p>
+
+<p><select name="style">
+<option value="0" select>STYLE OR MOOD?</option>
+<option value="a casual">casual</option>
+<option value="a conversational">conversational</option>
+<option value="a descriptive">descriptive</option>
+<option value="a formal">formal</option>
+<option value="a informative">informative</option>
+<option value="a narrative">narrative</option>
+<option value="a persuasive">persuasive</option>
+<option value="a professional">professional</option>
+<option value="an entertaining">entertaining</option>
+<option value="anger">angry</option>
+<option value="curiosity">curious</option>
+<option value="excitement">excited</option>
+<option value="happy">happy</option>
+<option value="humorous">humorous</option>
+<option value="optimistic">optimistic</option>
+<option value="sad">sad</option>
+</select></p>
+
+<p><select name="length">
+<option value="auto" selected>LENGTH?</option>
+<option value="auto">no specific length</option>
+<option value="40char">40 to 80 characters (Facebook ideal)</option>
+<option value="280char">280 characters (Tweet/X post)</option>
+<option value="50words">about 50 words (~ a Reddit comment)</option>
+<option value="300words">about 300 words (~ short blog post)</option>
+<option value="500words">about 500 words (~ 3 paragraph essay)</option>
+<option value="1000words">about 1,000 words (~ 5 paragraph essay)</option>
+<option value="3000words">about 3,000 words (~ magazine medium)</option>
+<option value="5000words">about 5,000 words (~ magazine long)</option>
+</select></p>
+
+</div>
+</div>
+
+<div id="medium" name="medium" class="medium">
+<h3><strong class="nmbr">3.</strong> INTENDED MEDIUM?</h3> 
+<p>Pick the best fit for how you intend to use the revised text.</p>
+<div class="intendedmedium">
+<p><input type="radio" name="pcmedium" value="none" checked>&nbsp;no&nbsp;specific&nbsp;format</p>
+<p><input type="radio" name="pcmedium" value="blog">&nbsp;web/blog post</p>
+<p><input type="radio" name="pcmedium" value="social">&nbsp;social&nbsp;media&nbsp;post</p>
+<p><input type="radio" name="pcmedium" value="ig">&nbsp;Instagram&nbsp;caption</p>
+<p><input type="radio" name="pcmedium" value="maxseo">&nbsp;maximum&nbsp;SEO</p>
+<p><input type="radio" name="pcmedium" value="ux">&nbsp;UX&nbsp;documentation</p>
+<p><input type="radio" name="pcmedium" value="tweet">&nbsp;tweet/X&nbsp;post</p>
+<p><input type="radio" name="pcmedium" value="video30">&nbsp;TV/video&nbsp;script</p>
+<p><input type="radio" name="pcmedium" value="audio15">&nbsp;radio/audio&nbsp;script</p>
+</div>
+
+</div>
+
+<div style="margin: 0; padding: 10px 0; text-align: center" align="center"><input class="subbtn" type="submit" name="submit" value="CLICK TO REFINE PROMPT &raquo;" /></div>
+
+<hr />
+
+
+<a href="casestudy.htm"><button class="navbtn">Case Study/Examples...</button></a> 
+
+
+
+</div>
+
+</form></div>
+
+<!-- <a href="#top"><button class="navbtn">^ BACK TO TOP</button></a> -->
+
+</div>
+<script>
+
+function toggleIdeas() {
+  var x = document.getElementById("toggleBlock");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
+
+
+</script>
+
+
+
+</body>
+</html>

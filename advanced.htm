@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LLM Prompt Pilot</title>
+<meta name="robots" content="index,follow,noarchive" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
+<meta name="description" content="OpenAI ChatGPT interface tool for multiple reformatting of news articles across various media and social channels." />
+<meta name="keywords" content="large language models, chatgpt, gpt, llm, cuny graduate center, data analysis program, fall 2023, matthew stanton" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css"><!--
+
+body {
+	background-color: #005DAA; 
+	padding: 10px 0px 40px 0px; 
+	margin: 0; 
+	color: #444; 
+	font: normal 14px/1.2em verdana, arial, helvetica, sans-serif;
+	line-height: 1.0;
+	text-align: center;
+	}
+
+.wrp01 {
+	width: 60%; min-width: 500px;
+	margin-right:auto; margin-left:auto; margin-top: 5px; margin-bottom: 10px;
+	padding: 0; 
+	text-align: left;
+	}
+
+.wrp02 {
+	border-radius: 30px;
+	margin: 2px 2px 10px 2px; padding: 10px 15px 15px 15px; 
+	text-align: left; 
+	background-color: #eeeeee; 
+	box-shadow: 5px 5px 100px #000;
+	}
+
+.wrp03 {
+	border-radius: 30px;
+	margin: 30px 2px 10px 2px; padding: 10px 15px 15px 15px; 
+	text-align: left; 
+	background-color: #fff; 
+	box-shadow: 5px 5px 100px #000;
+	font: normal 16px/1.2em calibri, arial, helvetica, sans-serifs;
+	color: #333;
+	}
+
+a:link {color: #005DAA; text-decoration: none; border-bottom: 0px solid #fff;}
+a:visited {color: #005DAA; text-decoration: none; border-bottom: 0px solid #fff;}
+a:hover  {color: #EC9C1D; text-decoration: none; border-bottom: 0px solid #EC9C1D;}
+a:active {color: #005DAA; text-decoration: none; border-bottom: 0px solid #fff;}
+
+a.btn:link {text-decoration: none; border: 0px;}
+a.btn:visited {text-decoration: none; border: 0px;}
+a.btn:hover {text-decoration: none; border: 0px;}
+a.btn:active {text-decoration: none; border: 0px;}
+
+.intro {margin: 0 0 15px 0; padding: 0px 20px 2px 20px; font: italic 16px/1.2em calibri, arial, helvetica, sans-serif; color: #666;}
+
+.nmbr {border-radius: 9px; background: #5e8cbf; padding: 5px 15px; margin: 0 5px 4px 0; font: normal 15px/1.2em 'Josefin Sans', sans-serif; color: #fff;}
+
+.textprompt {margin: 0 0 10px 0; padding: 0;}
+.textprompt p {margin: 2px 0 10px 50px; padding: 0; font: italic 13px/1.2em verdana, arial, helvetica, sans-serif;}
+
+.tone {margin: 0 0 10px 0; padding: 0;}
+.tone p {margin: 2px 0 10px 50px; padding: 0; font: italic 13px/1.2em verdana, arial, helvetica, sans-serif;}
+
+.medium {margin: 15px 0 10px 0; padding: 0;}
+.medium p {margin: 2px 0 10px 50px; padding: 0; font: italic 13px/1.2em verdana, arial, helvetica, sans-serif;}
+
+.tech {margin: 20px 0 10px 0; padding: 0;}
+.tech p {margin: 2px 0 10px 50px; padding: 0; font: italic 13px/1.2em verdana, arial, helvetica, sans-serif;}
+
+.optiongroup {width: 100%; margin: 0; padding: 0 5px 0 0; clear: left; overflow: auto;}
+.optiongroup p {float: left; margin: 0; padding: 0; color: #777;}
+.optiongroup select {margin: 5px 3px 0 3px; padding: 2px 5px; font: normal 13px/1.2em verdana, arial, helvetica, sans-serif; color: #555; background-color: #e0e0e0;}
+
+.intendedmedium {margin: 5px 15px 0; padding: 0; width:100%;
+	-webkit-column-count: 3; 
+	-moz-column-count: 3; 
+	column-count: 3;
+	-webkit-column-gap: 10px; 
+	-moz-column-gap: 10px; 
+	column-gap: 10px;
+}
+.intendedmedium p {margin: 0px 0 3px 0; padding: 0; color: #777;}
+
+h1 {margin: 3px 0 0 20px; pading: 0; font: normal 30px/1.2em 'Josefin Sans', sans-serif; letter-spacing: -1px; text-align: left;}
+h2 {margin: 7px 0; pading: 0; font: normal 20px/1.2em 'Josefin Sans', sans-serif; letter-spacing: -1px; text-align: left; color: #005DAA;}
+
+h3 {font: bold 13px/1.2em arial; color: #5e8cbf; margin: 3px 0 3px 0; padding: 0; clear: all;}
+
+img {border: 0; margin: 0;}
+form {border: 0; margin: 0; padding: 0;}
+
+textarea {width: 90%; margin: 5px 20px 0 0; padding: 15px; font: normal 1.0em/1.2em courier, 'courier new', monospace; color: #000;}
+
+.submitbtn {margin: 10px 0; padding: 10px; text-align: center;}
+
+.subbtn {margin: 0; padding: 7px 30px 5px 30px; 
+	border-radius: 9px;
+	letter-spacing: 3px;
+	font: normal 12px/1.2em 'Josefin Sans', sans-serif; 
+	color: #5e8cbf; background-color: #fff;
+	border: 2px solid #fff;		
+	-webkit-box-shadow: 3px 3px 15px 5px rgba(0,0,0,0.25); 
+	box-shadow: 3px 3px 15px 5px rgba(0,0,0,0.25);	
+	}
+
+.subbtn:hover {
+	transition: 0.9s;
+	border: 2px solid #009966;		
+	background-color: #009966; color: #fff;
+	-webkit-box-shadow: 3px 3px 15px 5px rgba(0,0,0,0.50); 
+	box-shadow: 3px 3px 15px 5px rgba(0,0,0,0.50);
+}
+
+#navblk {margin: 7px 0 3px 0; padding: 0; text-align: center;}
+
+.navbtn {margin: 5px 10px; padding: 2px 30px; 
+	border-radius: 9px;
+	font: bold 14px/1.2em calibri, arial, helvetica, sans-serif; 
+	color: #5e8cbf; background-color: #fff;
+	border: 0px solid #fff;		
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.15); 
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.15);	
+	}
+
+.navbtn:hover {
+	transition: 0.9s;
+	border: 0px solid #005DAA;		
+	background-color: #005DAA; color: #fff;
+	-webkit-box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.15); 
+	box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.15);
+}
+
+hr {
+    margin: 10px 0 5px 0;
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.33), rgba(0,0,0,0)); 
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.33), rgba(0,0,0,0)); 
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.33), rgba(0,0,0,0)); 
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.33), rgba(0,0,0,0)); 
+}
+
+--></style>
+</head>
+<body><div class="wrp01"><a name="top"></a>
+<img src="http://chimaboo.com/coursework/cunygc30.png" alt="CUNY Graduate Center :: Stanton's Stuff" border="0" />
+<div class="wrp02">
+
+<h1>LLM PROMPT PILOT v0.2</h1>
+
+<div id="intro" name="intro" class="intro">
+Craft more nuanced prompts and get better responses from large language model-driven tools - 
+<a href="https://chat.openai.com/" target="_blank">OpenAI's ChatGPT</a>, 
+<a href="https://bard.google.com/" target="_blank">Google Bard</a>, 
+<a href="https://claude.ai/" target="_blank">Anthropic's Claude</a>, or others.
+<br />
+
+<div id="navblk">
+<a href="#about"><button class="navbtn">About This Project...</button></a>&nbsp;
+<a href="casestudy.htm"><button class="navbtn">Case Study/Examples...</button></a> 
+</div>
+</div>
+
+<div id="textprompt" name="textprompt" class="textprompt"><form action="promptpilot.php" method="post">
+
+<h3><strong class="nmbr">1.</strong> ENTER TEXT OR TOPIC</h3>
+<p>What original source content do you want to start working with?</p>
+<textarea id="prompt" name="prompt" cols="60" rows="10"></textarea>
+
+</div>
+
+<div id="tone" name="tone" class="tone">
+<h3><strong class="nmbr">2.</strong> INTENDED TONES &amp; TARGETS?</h3>
+
+<p>Change options for the model to consider in results.</p>
+
+<div class="optiongroup">
+
+<!-- https://www.learnprompt.org/act-as-chat-gpt-prompts/ -->
+
+<p><select name="actas">
+<option value="0" select>ACT AS A...</option>
+<option value="an accountant">accountant</option>
+<option value="an advisor">advisor</option>
+<option value="an artist">artist</option>
+<option value="a babysitter">babysitter</option>
+<option value="a blogger">blogger</option>
+<option value="a business expert">business expert</option>
+<option value="a career counselor">career counselor</option>
+<option value="a chef">chef</option>
+<option value="a chief executive officer (CEO)">chief executive officer (CEO)</option>
+<option value="a coach">coach</option>
+<option value="a critic">critic</option>
+<option value="a designer">designer</option>
+<option value="a dietitian">dietitian</option>
+<option value="a finance advisor">finance advisor</option>
+<option value="a guide">guide</option>
+<option value="a health and fitness">health and fitness</option>
+<option value="an investment manager">investment manager</option>
+<option value="a language teacher">language teacher</option>
+<option value="a life coach">life coach</option>
+<option value="a marketer">marketer</option>
+<option value="a motivational coach">motivational speaker</option>
+<option value="a music teacher">music teacher</option>
+<option value="a philosophy professor">philosophy professor</option>
+<option value="a political advisor">political advisor</option>
+<option value="a product manager">product manager</option>
+<option value="a psychologist">psychologist</option>
+<option value="a real estate agent">real estate agent</option>
+<option value="a recruiter">recruiter</option>
+<option value="a religious person">religious person</option>
+<option value="a reviewer">reviewer</option>
+<option value="a specialist">specialist</option>
+<option value="a speech writer">speech writer</option>
+<option value="a startup idea generator">startup idea generator</option>
+<option value="a startup tech lawyer">startup tech lawyer</option>
+<option value="a teacher">teacher</option>
+<option value="a techie">techie</option>
+<option value="a tool">tool</option>
+<option value="a translator">translator</option>
+<option value="a writer">writer</option>
+</select></p>
+
+<p><select name="emotion">
+<option value="0" select>MOOD/EMOTION?</option>
+<option value="happy">happy</option>
+<option value="sad">sad</option>
+<option value="optimistic">optimistic</option>
+<option value="humorous">humorous</option>
+<option value="excitement">excitement</option>
+<option value="anger">anger</option>
+<option value="curiosity">curiosity</option>
+</select></p>
+
+<p><select name="voice">
+<option value="0" select>VOICE?</option>
+<option value="a formal">formal</option>
+<option value="a casual">casual</option>
+<option value="a professional">professional</option>
+<option value="a conversational">conversational</option>
+</select></p>
+
+<p><select name="style">
+<option value="0" select>STYLE?</option>
+<option value="a narrative">narrative</option>
+<option value="a descriptive">descriptive</option>
+<option value="a persuasive">persuasive</option>
+<option value="a informative">informative</option>
+<option value="an entertaining">entertaining</option>
+</select></p>
+
+<p><select name="atmosphere">
+<option value="0" selected>ATMOSPHERE?</option>
+<option value="a tense">tense</option>
+<option value="a relaxed">relaxed</option>
+<option value="a suspenseful">suspenseful</option>
+<option value="an uplifting">uplifting</option>
+</select></p>
+
+<p><select name="audience">
+<option value="0" selected>AUDIENCE AGE?</option>
+<option value="0">all generations</option>
+<option value="born before 1945">Greatest Gen (YOB < '46)</option>
+<option value="of the Baby Boomers generation">Baby Boomers (YOB '46-'64)</option>
+<option value="of the Gen X generation">Gen X (YOB '65-'80)</option>
+<option value="of the Millennials generation">Millennials (YOB '81-'96)</option>
+<option value="of the Gen Z generation">Gen Z (YOB '97-'12)</option>
+<option value="born since 2013">Gen Alpha (YOB > '12)</option>
+</select></p>
+
+<p><select name="readinglevel">
+<option value="0" selected>READING LEVEL?</option>
+<option value="at a 10th-grade or above">10th grade+</option>
+<option value="at an 8th-grade">8th grade</option>
+<option value="at a 3rd-grade">3rd grade</option>
+</select></p>
+
+<p><select name="length">
+<option value="auto" selected>LENGTH?</option>
+<option value="auto">no specific length</option>
+<option value="40char">40 to 80 characters (Facebook ideal)</option>
+<option value="280char">280 characters (Tweet/X post)</option>
+<option value="50words">about 50 words (~ a Reddit comment)</option>
+<option value="300words">about 300 words (~ short blog post)</option>
+<option value="500words">about 500 words (~ 3 paragraph essay)</option>
+<option value="1000words">about 1,000 words (~ 5 paragraph essay)</option>
+<option value="3000words">about 3,000 words (~ magazine medium)</option>
+<option value="5000words">about 5,000 words (~ magazine long)</option>
+</select></p>
+
+</div>
+</div>
+
+<div id="medium" name="medium" class="medium">
+<h3><strong class="nmbr">3.</strong> INTENDED MEDIUM?</h3> 
+<p>Pick the best fit for how you intend to use the revised text.</p>
+<div class="intendedmedium">
+<p><input type="radio" name="pcmedium" value="none" checked>&nbsp;no&nbsp;specific&nbsp;format</p>
+<p><input type="radio" name="pcmedium" value="blog">&nbsp;web/blog post</p>
+<p><input type="radio" name="pcmedium" value="social">&nbsp;social&nbsp;media&nbsp;post</p>
+<p><input type="radio" name="pcmedium" value="ig">&nbsp;Instagram&nbsp;caption</p>
+<p><input type="radio" name="pcmedium" value="maxseo">&nbsp;maximum&nbsp;SEO</p>
+<p><input type="radio" name="pcmedium" value="ux">&nbsp;UX&nbsp;documentation</p>
+<p><input type="radio" name="pcmedium" value="tweet">&nbsp;tweet/X&nbsp;post</p>
+<p><input type="radio" name="pcmedium" value="video30">&nbsp;TV/video&nbsp;script</p>
+<p><input type="radio" name="pcmedium" value="audio15">&nbsp;radio/audio&nbsp;script</p>
+</div>
+
+</div>
+
+<div style="margin: 0; padding: 10px 0; text-align: center" align="center"><input class="subbtn" type="submit" name="submit" value="CLICK TO REFINE PROMPT &raquo;" /></div>
+
+<hr />
+
+<div id="tech" name="tech" class="tech">
+<h3><strong class="nmbr">+</strong> OPTIONAL TECHNICAL STUFF...</h3>
+<p><strong>Warning:</strong> These features are not effective within the natural language of a text prompt. These have been retained on this form as placeholders ahead of the API version of this form. <a href="#techparameters">(What's all this mean?)</a></p>
+
+<div class="optiongroup">
+
+<p><select name="temperature">
+<option value="0" selected>TEMPERATURE?</option>
+<option value="2">2.0 : very creative, unconventional</option>
+<option value="1.5">1.5</option>
+<option value="1">1.0 : more creative, unconventional</option>
+<option value="0.5">0.5</option>
+<option value="0">0.0 : balanced creativity and coherence</option>
+<option value="-0.5">-0.5</option>
+<option value="-1.0">-1.0 : more conservative, predictable</option>
+<option value="-1.5">-1.5</option>
+<option value="-2">-2.0 : very conservative, predictable</option>
+</select></p>
+
+<p><select name="diversity_penalty">
+<option value="0" selected>DIVERSITY PENALTY?</option>
+<option value="0">0: low, may have repetitive phrases</option>
+<option value="1">1: medium, balanced diversity and coherenece</option>
+<option value="2">2: high, diverse but may affect coherenece</option>
+</select></p>
+
+<p><select name="max_tokens">
+<option value="auto" selected>MAX TOKENS?</option>
+<option value="auto">auto: no specific limit set</option>
+<option value="8">8: ~= 6 words/32 characters</option>
+<option value="16">16: ~= 12 words/64 characters</option>
+<option value="32">32: ~= 25 words/128 characters</option>
+<option value="64">64: ~= 50 words/256 characters</option>
+<option value="128">128: ~= 100 words/500 characters</option>
+<option value="256">256: ~= 192 words/1,000 characters</option>
+<option value="512">512: ~= 385 words/2,000 characters</option>
+<option value="1,024">1,024: ~= 760 words/4,000 characters</option>
+<option value="2,048">2,048: ~= 1,500 words/8,000 characters</option>
+<option value="4,096">4,096: ~= 3,000 words/16,000 characters</option>
+<option value="8,192">8,192: Chat GPT-4-8K+ only</option>
+<option value="32,768">32,768: Chat GPT-4-32K+ only</option>
+</select></p>
+
+<p><select name="hyperparameters">
+<option value="auto" selected>EPOCH HYPERPARAMETERS?</option>
+<option value="auto">auto (default)</option>
+<option value="1">1 epoch (quick)</option>
+<option value="2">2 epochs</option>
+<option value="4">4 epochs</option>
+<option value="8">8 epochs</option>
+<option value="15">15 epochs</option>
+<option value="30">30 epochs</option>
+<option value="50">50 epochs (slow)</option>
+</select></p>
+
+<p><select name="stopwords">
+<option value="0" selected>REMOVE STOP WORDS?</option>
+<option value="0">no, do not edit prompt</option>
+<option value="yes">yes, remove stopwords</option>
+</select></p>
+
+</div>
+
+</div>
+
+</form></div>
+
+<a name="parameters"></a>
+<div class="wrp03">
+<h2>ABOUT PROMPT PARAMETERS</h2>
+
+<p><strong><big>Large language models only generate responses based on the statistical relationships between words and phrases in their training data. That said, asking for responses in the right way can help a model better simulate comprehension what a user wants in a reply.</big></strong></p>
+
+<p>Customizing prompt parameters involves tailoring the input or instructions provided to a large language model (LLM) - e.g. <a href="https://chat.openai.com/" target="_blank">OpenAI's ChatGPT</a>, 
+<a href="https://bard.google.com/" target="_blank">Google Bard</a>, 
+<a href="https://claude.ai/" target="_blank">Anthropic's Claude</a> - to elicit more accurate and relevant responses. By refining the prompts, users can guide the model to produce desired outputs. Here's a summary of how customizing prompt parameters contributes to better responses:</p>
+
+<p><strong>Clarity of Instruction:</strong> Clearly specifying the desired format or type of response in the prompt helps the model understand the user's expectations, reducing ambiguity and generating more relevant answers.</p>
+
+<p><strong>Contextual Information:</strong> Including relevant context in the prompt can help the model understand the background of the query. This ensures that the responses take into account the specific context provided, leading to more coherent and accurate answers.</p>
+
+<p><strong>Iteration and Experimentation:</strong> Users can refine their prompts through an iterative process, experimenting with different instructions to observe how the model responds. Repeating these steps allows for fine-tuning and optimization of the input to achieve better outcomes.</p>
+
+<p><strong>Task-specific Guidance:</strong> When using language models for specific tasks, providing task-specific instructions in the prompt helps the model focus on the intended goal.</p>
+
+<p><strong>Balancing Creativity and Specificity:</strong> Users can guide the model to be creative while ensuring that the generated content remains relevant and aligned with their requirements.</p>
+
+<p><strong>Handling Sensitivity:</strong> Customizing prompts helps in addressing sensitivity concerns by providing explicit instructions on the desired tone, approach, or avoidance of certain topics. This is particularly useful in generating content that is appropriate for ethical or contextual considerations.</p>
+
+<a name="techparameters"></a>
+
+<h2>ABOUT MANUALLY ASKING FOR TECH PARAMETERS</h2>
+
+<p>As application programming interfaces (APIs) into LLMs evolve, developers will have more direct access to tweak responses outside of the natural language text within the prompt itself. <strong>Version 0.2 of this app does not allow use of these parameters, but options for their use have been retained as placeholders once a future API-driven version is functional.</strong> See the end of this section for intended use.</p>
+
+<p><strong>For more information about integrating with LLM APIs, see:</strong><br />
+
+<ul>
+<li> <a href="https://platform.openai.com/docs/api-reference">platform.openai.com/docs/api-reference</a></li>
+<li> <a href="https://labs.google/">labs.google</a></li>
+<li> <a href="https://support.anthropic.com/en/collections/4078533-api-prompt-design">support.anthropic.com/en/collections/4078533-api-prompt-design</a></li>
+</ul>
+
+<p><strong>Temperature:</strong> This setting controls the randomness of an LLM model's output. Higher values make the output more creative and random, while lower values make it more predictable and deterministic. If your responses do not seem to make any sense, lower the temperature setting.</p>
+
+<p><strong>Diversity Penalty:</strong> Tokens are the individual units that make up a piece of text, and they help computers understand and process language. (Think of tokens here as the number of words in a sentence, although the model might not count some duplicate or simple words.) Under this parameter, tokens that have already been used in the response are penalized, making the final output more varied. Setting higher values leads to more diverse text, while lower values may use more repetitive phrases.<p>
+
+<p><strong>Max Tokens:</strong> Limits the length of the response generated by the model to the specified number of tokens. As a rough rule of thumb, one token equate to about 4 characters or 3/4 words, so 100 tokens estimates to about 75 words, or a typical paragraph. (<a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them" target="_blank">More&nbsp;info&nbsp;&raquo;</a>)</p>
+
+<p><strong>Hyperparameters:</strong> Some APIs allow for directly setting the number of times the machines "think" about a response before outputting a final reply. In the training phase (which occurs before you use the model for generating responses), the model goes through multiple epochs, where it sees the entire training dataset. More epochs during training can allow the model to learn more complex patterns from the data, potentially improving its ability to generate contextually relevant responses. Fine-tuning is the process of training a pre-existing model on a more specific dataset. Increasing fine-tuning epochs allows the model to adapt better to the specifics of the new data, potentially making it more suitable for certain tasks or contexts.</p>
+
+<p><strong>Remove Stop Words:</strong> Borrowing a trick from the <a href="https://www.nltk.org/" target="_blank">Natural Language Processing Toolkit (NLTK)</a>, this setting removes some English-language stopwords, words that are really common in a language but usually don't carry much meaning on their own. Think of the glue that holds sentences together: "the," "and," "is," and "in." When working with language, people often remove stopwords to focus on the more important and meaningful words in a piece of text. In this case, the option is given to reduce the token/character count passed to an LLM as a way to get around input limits. (It's a cheap hack; its utility may be marginal.)</p>
+
+<p><strong>Use Cases on API Hyperparameters:</strong> Whenever the API-based version of this app is live, the following templates can be coded into the tool for direct reference to each language model. (<a href="https://uxplanet.org/use-chatgpt-like-a-pro-discover-parameters-and-unlock-ai-writing-secrets-8f68a342bdea" target="_blank">Credit due to <strong>Anca Budau</strong> for these templates.</a>)</p>
+
+<blockquote>
+
+<p><strong>Blog Post</strong><br />
+
+Temperature: 0.5 to 0.7 for a balance between creativity and coherence.<br />
+Diversity_penalty: 1 to ensure diverse output without compromising readability.<br />
+Max tokens: Set according to your desired word count or limit to keep responses concise.<br />
+
+<p><strong>Newsletter Email</strong><br />
+
+Temperature: 0.3 to 0.5 for focused and coherent outputs.<br />
+Diversity_penalty: 0.5 to 1 to avoid repetition while maintaining readability.<br />
+Max tokens: Set according to the desired length of your email content.<br />
+
+</p>
+
+<p><strong>Social Media Caption</strong><br />
+
+Use these settings:
+Temperature: 0.7 to 1 for more creative and diverse outputs.<br />
+Diversity_penalty: 1 to 2 for maximum diversity without sacrificing too much coherence.<br />
+Max tokens: Set a limit that corresponds to the platform’s character limit.<br />
+
+<p><strong>UX writing</strong><br />
+
+Temperature: 0.2 to 0.4 for highly focused and coherent outputs.<br />
+Diversity_penalty: 0 to 0.5 to maintain clarity and avoid repetitive phrases.<br />
+Max tokens: Set a strict limit to keep instructions and labels concise.<br />
+
+<p><strong>Creative storytelling</strong><br />
+
+Temperature: 0.7 to 1 for maximum creativity and variety.<br />
+Diversity_penalty: 1 to 2 for a wide range of unique phrases and ideas.<br />
+Max tokens: Set according to your desired story length or scene.<br />
+
+<p><strong>Formal business writing</strong><br />
+
+Temperature: 0.2 to 0.4 for focused, coherent, and conservative outputs.<br />
+Diversity_penalty: 0 to 1 for balanced diversity without affecting readability.<br />
+Max tokens: Set a limit based on the desired length of your business document.<br />
+
+
+</cite>
+
+</div>
+
+<a href="#top"><button class="navbtn">^ BACK TO TOP</button></a>
+
+<a name="about"></a>
+<div class="wrp03">
+<h2>ABOUT THIS PROJECT</h2>
+
+<p><strong><big>The goal here is to illustrate how users may refine large language model prompts and responses, tailoring them more precisely to specific requests related to different target audiences.</big></strong></p>
+
+<p>The initial proposal for this simple web app was to show how one of the roles of a media producer could be almost fully automated through the use of large language models, specifically OpenAI's Chat GPT.</p>
+
+<p>The scope of this tool was designed for the CUNY Graduate Center's <a href="https://github.com/michellejm/LLMs-fall-23" target="_blank">Large Language Models and ChatGPT</a> course by <a href="http://michelleamcsweeney.com/" target="_blank">Michelle A. McSweeney</a> - specifically, the Fall 2023 semester's <a href="https://platform.openai.com/playground" target="_blank">OpenAI Playground</a> lab and the Oct. 30 class discussion on <strong>Labor & Creative Production</strong> led by 
+Kelly Cunningham, Ruby Chu, and Michael Smith (<a href="https://docs.google.com/document/d/1mpplxD9RnnuwxjMpHWqJh6dnQwLvQAKFq21J9S2mYDo/edit#heading=h.hugpv1r2rtpb" target="_blank">notes</a>, <a href="https://docs.google.com/presentation/d/1VC6--4AXl2g4Dbkfg_Y0GNtzRheMkwC0rJ_tJf1UJZ8/edit#slide=id.p" target="_blank">presentation</a>). The in-class exercise highlighted the vulnerability of several jobs from my past career, notably <a href="https://www.mynextmove.org/profile/summary/27-3023.00" target="_blank">News Analysts, Reporters, and Journalists (27-3023.00)</a>.</p>
+
+<p>For example, at a major network news organization in the mid-2010s, it was typical to employ producers who would watch news wires, broadcasts, and Twitter feeds in order to quickly and accurately produce the following:
+
+<ol>
+
+<li> text-based articles for publishing to one or more news-branded or lifestyle websites,</li>
+
+<li> review and optimize articles for best SEO performance,</li> 
+
+<li> create a series of social media posts for promotion of said web articles via Facebook, Twitter, and LinkedIn,</li>
+
+<li> create a television broadcast script for quick production of a web-exclusive video segment,</li> 
+
+<li> forward a summary recap to editors at various syndication partners and topical-interest sites, and,</li>
+
+<li> log a note off the published posts in a daily rundown.</li>
+
+</ol>
+
+Depending on the story, these steps might take a producer from 10 minutes to an hour to edit, or longer for actively developing news. Now with such public LLM-based tools <a href="https://chat.openai.com/" target="_blank">OpenAI's Chat&nbsp;GPT</a>, <a href="https://bard.google.com/" target="_blank">Google Bard</a>, 
+<a href="https://claude.ai/" target="_blank">Anthropic Claude</a>, and many others, such tasks may be done in seconds.</p>
+
+<p>While automating receptive tasks, increasing efficiency, and helping fine-tune the performance of large language models may be all fine and good, such a disruptive change in  is having an immediate impact on a whole class of creative professionals. For example, take the rather clickbait-savvy headline <a href="https://www.entrepreneur.com/business-news/chatgpt-took-my-job-in-copywriting-you-could-be-next/456090" target="_blank">"I Lost My Job to ChatGPT and Was Made Obsolete. I Was Out of Work for 3 Months Before Taking a New Job Passing Out Samples at Grocery Stores."</a> by Emily Hanley, posted July 19, 2023, on <a href="https://www.entrepreneur.com/business-news/chatgpt-took-my-job-in-copywriting-you-could-be-next/456090" target="_blank">Entrepreneur.com</a>.</p>
+
+<h3>Credits</h3>
+
+<p>Many thank Bianca C. Calabresi and Ismerlyn Gonzalez who provided feedback, including Ismerlyn's highlight on the risk "it could further help some nefarious actors spread disinformation/misinformation" - one of the points to illustrate here with such technology.</p>
+
+<h3>Curated Readings (from Dr. Michelle McSweeney's Syllabus)</h3>
+
+<ul>
+<li> Eloundou, et al., 2023. OpenAI <a href="https://arxiv.org/abs/2303.10130" target="_blank">GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models</a></li>
+<li> May 7, 2023, The Economist. <a href="https://www.economist.com/finance-and-economics/2023/05/07/your-job-is-probably-safe-from-artificial-intelligence" target="_blank">Your job is (probably) safe from artificial intelligence</a></li>
+<li> Lohr, April 10, 2023. NYTimes <a href="https://www.nytimes.com/2023/04/10/technology/ai-is-coming-for-lawyers-again.html" target="_blank">A.I. Is Coming for Lawyers, Again</a></li>
+<li> Klinova & Korinek, Aug 17, 2023. Brookings. <a href="https://www.brookings.edu/articles/unleashing-possibilities-ignoring-risks-why-we-need-tools-to-manage-ais-impact-on-jobs/" target="_blank">Unleashing possibilities, ignoring risks: Why we need tools to manage AI's impact on jobs</a></li>
+<li> O'Reilly & Zahidi, Sept 2023. World Economic Forum. <a href="https://www3.weforum.org/docs/WEF_Jobs_of_Tomorrow_Generative_AI_2023.pdf" target="_blank">Jobs of Tomorrow: Large Language Models and Jobs</a></li>
+</ul>
+
+<hr />
+
+<p><strong>MATTHEW STANTON</strong><br />
+<a href="mailto: mstanton@gradcenter.cuny.edu">mstanton@gradcenter.cuny.edu</a><br />
+<a href="https://pingstanton.com/work/" target="_blank">pingstanton.com/work</a><br />
+<a href="https://github.com/pingstanton/" target="_blank">github.com/pingstanton/</a><br />
+</p>
+
+</div>
+
+<a href="#top"><button class="navbtn">^ BACK TO TOP</button></a>
+
+</div></body>
+</html>
